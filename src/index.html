@@ -1,7 +1,11 @@
 ---
 layout: layout.html
 ---
-<p class="text-green-400">hello</p>
+<div class="space-y-2">
 {% for post in collections.post %}
-<a href="{{post.url}}">{{ post.data.title }} {{post.data.date  | date: "%b %d, %Y"}}</a>
+<div class="flex justify-between items-center w-full">
+	<a href="{{post.url}}" class="hover:underline hover:text-yellow-400">{{ post.data.title }}</a>
+	<div class="text-sm text-gray-400">{{post.data.date  | date: "%b %d, %Y"}}</div>
+</div>
 {% endfor %}
+</div>
