@@ -1,11 +1,12 @@
 ---
 layout: layout.html
 ---
-<div class="space-y-2">
+<div style="display: flex; flex-direction: column; gap: 10px;">
 {% for post in collections.post %}
-<div class="flex justify-between items-center w-full">
-	<a href="{{post.url}}" class="hover:underline hover:text-yellow-400">{{ post.data.title }}</a>
-	<div class="text-sm text-gray-400">{{post.data.date  | date: "%b %d, %Y"}}</div>
+<div style="display: flex; justify-content: space-between; align-items: center;
+	width: full;">
+	<a href="{{post.url}}" class="text-red-400">{{ post.data.title }}</a>
+	<div style="font-size: 14px; color: #99A1AF;">{{post.data.date  | date: "%b %d, %Y"}}</div>
 </div>
 {% endfor %}
 </div>
