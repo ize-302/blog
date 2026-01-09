@@ -27,11 +27,16 @@
 				<div></div>
 			</div>
 
-    <header style="margin-bottom: 40px;">
-			<h1 style="font-size: 24px; color: white; font-weight: 600; margin-bottom: 5px;">{{ title }}</h1>
+    <header style="margin-bottom: 50px;">
+			<h1 style="font-size: 24px; color: white; font-weight: 600; margin-bottom:
+				0px; padding: 0px;">{{ title }}</h1>
+			<p style="font-weight: 400; margin-bottom:
+				5px;">{{ summary }}</p>
 			<p style="color: #99A1AF; font-size: 14px;">{{page.date | date: "%b %d, %Y" }}</p>
 		</header>
+		<div>
 			{{ content }}
+		</div>
 		</main>
   </body>
 </html>

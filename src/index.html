@@ -1,11 +1,15 @@
 ---
 layout: layout.html
 ---
-<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; flex-direction: column; gap: 30px;">
 {% for post in collections.post %}
-<div style="display: flex; justify-content: space-between; align-items: center;
+<div style="display: flex; flex-direction: column; align-items: start;
+						justify-items: start; gap: 8px; justify-content: space-between;;
 	width: full;">
-	<a href="{{post.url}}" class="text-red-400">{{ post.data.title }}</a>
+	<a href="{{post.url}}" class="padding: 0; margin: 0;">{{ post.data.title }}</a>
+	{%if post.data.summary %}
+	<div class="margin: 0; padding: 0;">{{post.data.summary}}</div>
+	{% endif %}
 	<div style="font-size: 14px; color: #99A1AF;">{{post.data.date  | date: "%b %d, %Y"}}</div>
 </div>
 {% endfor %}
