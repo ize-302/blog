@@ -48,7 +48,7 @@ with the rise of AI. Getting interviews have been difficult even with my level
 of experience. But don't worry about me, I currently have a full-time job but I am
 looking for a new opportunity as a backend / fullstack developer. So if you have
 an open role, please do send it my way. Thank you and
-_[Here](../../assets/Adavize_Hassan_senior_software_dev.pdf)_
+_[Here](/assets/Adavize_Hassan_senior_software_dev.pdf)_
 is my resume for reference.
 
 These are trying times and the best course of action is to evolve
