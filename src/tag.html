@@ -1,0 +1,30 @@
+---js
+{
+  layout: "layout.html",
+  pagination: {
+    data: "collections.tagList",
+    size: 1,
+    alias: "tag",
+  },
+  permalink: (data) => `/tags/${data.tag}/`,
+  eleventyComputed: {
+    title: (data) => `Posts tagged "${data.tag}"`,
+    description: (data) => `Posts tagged "${data.tag}"`,
+  },
+  eleventyExcludeFromCollections: true,
+}
+---
+<h1 style="font-size: 28px; color: var(--heading); font-weight: 700; margin-bottom: 24px;">Tagged "{{ tag }}"</h1>
+<div class="post-list">
+{% for post in collections.post %}
+{% if post.data.tags contains tag and post.data.published != false %}
+<a class="post-card" href="{{post.url}}">
+	<div class="post-card-title">{{ post.data.title }}</div>
+	{% if post.data.summary %}
+	<div class="post-card-summary">{{post.data.summary}}</div>
+	{% endif %}
+	<div class="post-card-date">{{post.data.date | date: "%b %d, %Y"}} · {{ post.templateContent | readingTime }} min read</div>
+</a>
+{% endif %}
+{% endfor %}
+</div>

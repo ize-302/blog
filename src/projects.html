@@ -1,0 +1,27 @@
+---
+layout: layout.html
+title: Projects
+description: A list of things I've built.
+---
+<div class="project-list">
+{% for project in projects %}
+<div class="project-card">
+	<div class="project-card-title">{{ project.title }}</div>
+	<div class="project-card-description">{{ project.description }}</div>
+	{% if project.tags %}
+	<div class="project-card-tags">
+		{% for tag in project.tags %}
+		<span class="tag">{{ tag }}</span>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% if project.links %}
+	<div class="project-card-links">
+		{% for link in project.links %}
+		<a href="{{ link.url }}">{{ link.label }}</a>
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
+{% endfor %}
+</div>

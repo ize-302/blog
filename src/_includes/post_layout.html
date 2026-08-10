@@ -5,38 +5,103 @@
 		<meta charset="utf-8"/>
 		<meta name=referrer content=origin/>
 		<meta name=viewport content="width=device-width,initial-scale=1"/>
-		<meta name=description content="{{title}}"/>
-		<link href=atom.xml rel=alternate type=application/atom+xml/>
+		<meta name=description content="{{ summary | default: title }}"/>
+		<meta property="og:type" content="article"/>
+		<meta property="og:title" content="{{ title }}"/>
+		<meta property="og:description" content="{{ summary | default: title }}"/>
+		<meta property="og:url" content="{{ metadata.url }}{{ page.url }}"/>
+		<meta property="og:image" content="{{ metadata.url }}/assets/atom.png"/>
+		<meta property="og:image:width" content="380"/>
+		<meta property="og:image:height" content="380"/>
+		<meta name="twitter:card" content="summary"/>
+		<meta name="twitter:title" content="{{ title }}"/>
+		<meta name="twitter:description" content="{{ summary | default: title }}"/>
+		<meta name="twitter:image" content="{{ metadata.url }}/assets/atom.png"/>
+		<link rel="canonical" href="{{ metadata.url }}{{ page.url }}"/>
+		<link href="/atom.xml" rel=alternate type=application/atom+xml/>
+		<link rel="icon" type="image/png" href="/assets/atom.png" />
     <link rel="stylesheet" href="/css/style.css" />
 <link
 			href="/css/prism-one-light.css"
 			rel="stylesheet"
 		/>
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        document.documentElement.dataset.theme =
+          stored || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      })();
+    </script>
   </head>
   <body>
-    <main style="max-width: 736px; margin: 0 auto; padding: 4px;">
+    <main class="page">
 			<div style="display: flex; align-items: center; justify-content:
 				space-between; margin-bottm: 10px">
-				<a style="color:#99A1AF; font-size: 14px; display: flex; align-items:
+				<a style="color:var(--muted); font-size: 14px; display: flex; align-items:
 					center; gap: 5px;" href="/">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 						<path fill="currentColor" d="m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z"/>
 					</svg>
 					home
 				</a>
-				<div></div>
+				<div style="display: flex; align-items: center; gap: 10px; font-size: 14px;">
+					<a href="/projects/" style="color: var(--muted); text-decoration: underline;">Projects</a>
+					<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle color theme">
+					<span class="icon-sun">
+						<svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18">
+							<path fill="currentColor" d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-96-100 51-54 101 97-56 57Zm-98-550 97-101 59 56-100 97-56-52ZM154-212l100-96 54 51-97 101-57-56Z"/>
+						</svg>
+					</span>
+					<span class="icon-moon">
+						<svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18">
+							<path fill="currentColor" d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/>
+						</svg>
+					</span>
+					</button>
+				</div>
 			</div>
 
     <header style="margin-bottom: 50px;">
-			<h1 style="font-size: 24px; color: white; font-weight: 600; margin-bottom:
-				0px; padding: 0px;">{{ title }}</h1>
+			<h1 style="font-size: 34px; line-height: 1.25; color: var(--heading); font-weight: 700; margin-bottom:
+				10px; padding: 0px;">{{ title }}</h1>
 			<p style="font-weight: 400; margin-bottom:
-				5px;">{{ summary }}</p>
-			<p style="color: #99A1AF; font-size: 14px;">{{page.date | date: "%b %d, %Y" }}</p>
+				5px; padding: 0;">{{ summary }}</p>
+			<p style="color: var(--muted); font-size: 14px; margin-bottom: 12px;">{{page.date | date: "%b %d, %Y" }} · {{ content | readingTime }} min read</p>
+			{% assign displayTags = tags | displayTags %}
+			{% if displayTags.size > 0 %}
+			<div class="tag-list">
+				{% for tag in displayTags %}
+				<a class="tag" href="/tags/{{ tag }}/">{{ tag }}</a>
+				{% endfor %}
+			</div>
+			{% endif %}
 		</header>
-		<div>
+		<div class="post-content">
 			{{ content }}
 		</div>
+		<div id="giscus-container" style="margin-top: 48px;"></div>
 		</main>
+    <script src="/js/theme.js"></script>
+    <script>
+      (function () {
+        var giscusScript = document.createElement("script");
+        giscusScript.src = "https://giscus.app/client.js";
+        giscusScript.setAttribute("data-repo", "ize-302/blog");
+        giscusScript.setAttribute("data-repo-id", "R_kgDOQzY0xw");
+        giscusScript.setAttribute("data-category", "Comments");
+        giscusScript.setAttribute("data-category-id", "DIC_kwDOQzY0x84DDFb_");
+        giscusScript.setAttribute("data-mapping", "pathname");
+        giscusScript.setAttribute("data-strict", "0");
+        giscusScript.setAttribute("data-reactions-enabled", "1");
+        giscusScript.setAttribute("data-emit-metadata", "0");
+        giscusScript.setAttribute("data-input-position", "top");
+        giscusScript.setAttribute("data-theme", document.documentElement.dataset.theme || "dark");
+        giscusScript.setAttribute("data-lang", "en");
+        giscusScript.setAttribute("data-loading", "lazy");
+        giscusScript.setAttribute("crossorigin", "anonymous");
+        giscusScript.async = true;
+        document.getElementById("giscus-container").appendChild(giscusScript);
+      })();
+    </script>
   </body>
 </html>

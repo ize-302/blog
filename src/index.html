@@ -1,16 +1,24 @@
 ---
 layout: layout.html
 ---
-<div style="display: flex; flex-direction: column; gap: 30px;">
+<div class="post-list">
 {% for post in collections.post %}
-<div style="display: flex; flex-direction: column; align-items: start;
-						justify-items: start; gap: 8px; justify-content: space-between;;
-	width: full;">
-	<a href="{{post.url}}" class="padding: 0; margin: 0;">{{ post.data.title }}</a>
+{% if post.data.published != false %}
+<a class="post-card" href="{{post.url}}">
+	<div class="post-card-title">{{ post.data.title }}</div>
 	{%if post.data.summary %}
-	<div class="margin: 0; padding: 0;">{{post.data.summary}}</div>
+	<div class="post-card-summary">{{post.data.summary}}</div>
 	{% endif %}
-	<div style="font-size: 14px; color: #99A1AF;">{{post.data.date  | date: "%b %d, %Y"}}</div>
-</div>
+	<div class="post-card-date">{{post.data.date | date: "%b %d, %Y"}} · {{ post.templateContent | readingTime }} min read</div>
+	{% assign displayTags = post.data.tags | displayTags %}
+	{% if displayTags.size > 0 %}
+	<div class="tag-list">
+		{% for tag in displayTags %}
+		<span class="tag">{{ tag }}</span>
+		{% endfor %}
+	</div>
+	{% endif %}
+</a>
+{% endif %}
 {% endfor %}
 </div>
