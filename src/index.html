@@ -10,14 +10,6 @@ layout: layout.html
 	<div class="post-card-summary">{{post.data.summary}}</div>
 	{% endif %}
 	<div class="post-card-date">{{post.data.date | date: "%b %d, %Y"}} · {{ post.templateContent | readingTime }} min read</div>
-	{% assign displayTags = post.data.tags | displayTags %}
-	{% if displayTags.size > 0 %}
-	<div class="tag-list">
-		{% for tag in displayTags %}
-		<span class="tag">{{ tag }}</span>
-		{% endfor %}
-	</div>
-	{% endif %}
 </a>
 {% endif %}
 {% endfor %}
